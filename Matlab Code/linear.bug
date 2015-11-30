@@ -1,0 +1,33 @@
+model {
+  for (i in 1:86149) {
+    mid_mu[i] <- mu[1] + A[carrier_id[i]] + R[route[i]] + AR[route_carrier_id[i]] + M[month[i]] + L2[carrier_leg2[i]] + L3[carrier_leg3[i]] + alpha[1]*pos_1280[i] + alpha[2]*neg_1280[i] + alpha[3]*plan_dur[i] + alpha[4]*log_weight[i] + alpha[5]*log_pieces[i]
+    delay_1410[i] ~ dnorm(mid_mu[i], tau[1])   
+  }
+  for (i in 1:20) {
+    A[i] ~ dnorm(0, tau[2])
+  }
+  for (i in 1:1333) {
+    R[i] ~ dnorm(0, tau[3])
+  }
+  for (i in 1:587) {
+    AR[i] ~ dnorm(0, tau[4])
+  }
+  for (i in 1:7) {
+    M[i] ~ dnorm(0, tau[5])
+  }
+  for (i in 1:16) {
+    L2[i] ~ dnorm(mu[2], tau[6])
+  }
+  for (i in 1:17) {
+    L3[i] ~ dnorm(mu[3], tau[7])
+  }
+  for (i in 1:5){
+    alpha[i] ~ dnorm(0,0.0001)
+  }
+  for (i in 1:7){
+    tau[i] ~ dgamma(0.01, 0.01)
+  }
+  for (i in 1:3){
+    mu[i] ~ dnorm(0,0.0001)
+  }
+}
