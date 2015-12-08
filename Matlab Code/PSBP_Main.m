@@ -24,6 +24,8 @@ end
 for j=1:length(t_pcs)-4
     matrix_pcs(:,j)=bspline_basis(j-1,order,t_pcs,log_pcs);
 end
+data = [data(:, 1:6), matrix_dev, matrix_dur, matrix_weight];
+csvwrite('FinalData.csv', data);
 data_info = struct('dep',data(:,1),'category_predictor',data(:,2:6),'continuous_predictor',...
     [matrix_dev, matrix_dur,matrix_weight],'group_id',data(:,7));
 % data_info = struct('dep',data(:,1),'category_predictor',data(:,2:6),'continuous_predictor',data(:,8:end),'group_id',data(:,7));
